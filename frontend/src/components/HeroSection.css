@@ -1,0 +1,86 @@
+.hero-section {
+  width: 100%;
+  padding: 90px 20px 40px 20px; /* Reduced top padding to move it closer to the header */
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  box-sizing: border-box;
+}
+
+.hero-container {
+  width: 100%;
+  max-width: 1800px; /* Massively increased max width */
+  height: 85vh; /* Increased height slightly */
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-sky-layer {
+  position: absolute;
+  top: -10%;
+  left: 0;
+  width: 100%;
+  height: 120%;
+  background-image: url('https://cdn.prod.website-files.com/69f5a976715525ce3175cda8/69f5a978715525ce3175ce07_hero-bg-sky.webp');
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+.hero-text-layer {
+  position: absolute;
+  /* Final resting position */
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+}
+
+.hero-bg-title {
+  font-family: 'Satoshi', 'Inter', sans-serif;
+  font-size: 14.5vw;
+  font-weight: 900; /* Increased from 500 to 900 for maximum boldness */
+  -webkit-text-stroke: 2px #7997a5; /* Added stroke to make it physically 40% thicker */
+  color: #7997a5;
+  opacity: 0.6;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hero-char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(80vh);
+  will-change: transform, opacity;
+}
+
+.hero-house-layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://cdn.prod.website-files.com/69f5a976715525ce3175cda8/69f5a978715525ce3175ce0b_hero-fg.webp');
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  z-index: 3;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 80px 15px 20px 15px; /* Also reduced on mobile */
+  }
+  .hero-container {
+    height: 60vh;
+  }
+  .hero-bg-title {
+    font-size: 20vw;
+  }
+}
