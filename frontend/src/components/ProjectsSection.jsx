@@ -2,6 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './ProjectsSection.css';
+import project1 from '../assets/images/project_1_malibu_villa_1777865246928.png';
+import project2 from '../assets/images/project_2_london_warehouse_1777865273237.png';
+import project3 from '../assets/images/project_3_tuscan_pavilion_1777865295928.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,7 +16,7 @@ const projects = [
     category: 'Residential',
     year: '2023',
     description: 'A seamless integration of indoor and outdoor living, this residence features floor-to-ceiling glass walls that frame the Pacific horizon, utilizing sustainable timber and local stone.',
-    image: 'https://cdn.prod.website-files.com/69f5a976715525ce3175cda8/69f5a978715525ce3175ce05_Contemporary%20House%20at%20Dawn_Dusk.jpeg',
+    image: project1,
     align: 'left'
   },
   {
@@ -23,7 +26,7 @@ const projects = [
     category: 'Mixed-Use',
     year: '2022',
     description: 'A transformation of a historic industrial warehouse into a light-filled sanctuary, combining raw structural elements with refined minimalist interiors and smart-glass technology.',
-    image: 'https://cdn.prod.website-files.com/69f5a976715525ce3175cda8/69f5a978715525ce3175ce04_Modern%20Minimalist%20House%20with%20Garden.jpeg',
+    image: project2,
     align: 'right'
   },
   {
@@ -33,7 +36,7 @@ const projects = [
     category: 'Hospitality',
     year: '2024',
     description: 'Merging traditional Italian masonry with modern glass volumes, this retreat serves as a masterclass in restorative architecture within a protected heritage landscape.',
-    image: 'https://cdn.prod.website-files.com/69f5a976715525ce3175cda8/69f5a978715525ce3175ce13_project-2-img.webp',
+    image: project3,
     align: 'left'
   }
 ];

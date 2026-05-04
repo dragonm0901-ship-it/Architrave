@@ -1,54 +1,59 @@
 const express = require('express');
 const cors = require('cors');
-const { Pool } = require('pg');
+const helmet = require('helmet');
+const morgan = require('morgan');
+const db = require('./src/config/db');
+const errorHandler = require('./src/middleware/errorHandler');
 require('dotenv').config();
+
+
+// 1. Environment Validation
+const requiredEnv = ['PGUSER', 'PGHOST', 'PGDATABASE', 'PGPASSWORD', 'PGPORT'];
+const missingEnv = requiredEnv.filter(env => !process.env[env]);
+
+if (missingEnv.length > 0) {
+  console.error(`FATAL ERROR: Missing environment variables: ${missingEnv.join(', ')}`);
+  process.exit(1);
+}
 
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(express.json());
+// 2. Security Middleware
+app.use(helmet()); // Set security headers
+app.use(morgan('dev')); // HTTP request logger
+app.use(cors({
 
-// Initialize PostgreSQL Pool
-const pool = new Pool({
-  user: process.env.PGUSER || 'postgres',
-  host: process.env.PGHOST || 'localhost',
-  database: process.env.PGDATABASE || 'woodland_db',
-  password: process.env.PGPASSWORD || 'password',
-  port: process.env.PGPORT || 5432,
-});
+  origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+app.use(express.json({ limit: '10kb' })); // Body limit to prevent large payload attacks
 
-// Test connection
-pool.connect((err, client, release) => {
-  if (err) {
-    console.error('Error acquiring client', err.stack);
-  } else {
-    console.log('Successfully connected to PostgreSQL Database');
-    release();
-  }
-});
 
-// Basic API Endpoint
+
+// Routes
+const projectRoutes = require('./src/routes/projectRoutes');
+const serviceRoutes = require('./src/routes/serviceRoutes');
+const reviewRoutes = require('./src/routes/reviewRoutes');
+const contactRoutes = require('./src/routes/contactRoutes');
+
+app.use('/api/projects', projectRoutes);
+app.use('/api/services', serviceRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/contact', contactRoutes);
+
+// Health Check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'success', message: 'Backend is running correctly.' });
 });
 
-app.get('/api/projects', async (req, res) => {
-  try {
-    // A query example once tables are created
-    // const result = await pool.query('SELECT * FROM projects');
-    // res.json(result.rows);
-    res.json([
-      { id: 1, title: 'Coastal Villa', status: 'Completed' },
-      { id: 2, title: 'The Willow Loft', status: 'In Progress' },
-      { id: 3, title: 'Sunshine Retreat', status: 'Planning' }
-    ]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+// Global Error Handler
+app.use(errorHandler);
 
 app.listen(port, () => {
+
   console.log(`Server is running on port ${port}`);
 });
+
+

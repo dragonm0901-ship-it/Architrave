@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './ContactSection.css';
@@ -8,13 +8,20 @@ gsap.registerPlugin(ScrollTrigger);
 const ContactSection = () => {
   const sectionRef = useRef(null);
   const imageRef = useRef(null);
+  
+  // Form State
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [status, setStatus] = useState({ type: '', message: '' }); // 'loading', 'success', 'error'
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Starting position for parallax
       gsap.set(imageRef.current, { yPercent: -15 });
 
-      // Image Parallax
       gsap.to(imageRef.current, {
         yPercent: 15,
         ease: "none",
@@ -26,7 +33,6 @@ const ContactSection = () => {
         }
       });
       
-      // Fade up the form section elements
       gsap.from('.contact-left h2, .contact-left p, .form-group, .submit-btn', {
         y: 30,
         opacity: 0,
@@ -44,6 +50,42 @@ const ContactSection = () => {
     return () => ctx.revert();
   }, []);
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setStatus({ type: 'loading', message: 'Sending your message...' });
+
+    try {
+      const response = await fetch('http://localhost:5000/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setStatus({ type: 'success', message: 'Thank you! Your message has been sent successfully.' });
+        setFormData({ name: '', email: '', message: '' }); // Clear form
+      } else {
+        setStatus({ 
+          type: 'error', 
+          message: data.errors ? data.errors[0].message : (data.message || 'Something went wrong. Please try again.') 
+        });
+      }
+    } catch (err) {
+      setStatus({ type: 'error', message: 'Unable to connect to the server. Please check your connection.' });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section className="contact-section" id="contact-section" ref={sectionRef}>
       <div className="contact-container">
@@ -53,23 +95,52 @@ const ContactSection = () => {
             If you're someone who's looking to bring a space to life, share a few details to help me reach out to you so we can discuss how to bring your vision to life.
           </p>
           
-          <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+          <form className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="name">Your full name</label>
-              <input type="text" id="name" name="name" />
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                value={formData.name}
+                onChange={handleChange}
+                required 
+              />
             </div>
             
             <div className="form-group">
               <label htmlFor="email">Your email address</label>
-              <input type="email" id="email" name="email" required />
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                value={formData.email}
+                onChange={handleChange}
+                required 
+              />
             </div>
             
             <div className="form-group">
               <label htmlFor="message">A little bit about your project</label>
-              <textarea id="message" name="message" placeholder="Example Text"></textarea>
+              <textarea 
+                id="message" 
+                name="message" 
+                placeholder="Tell us about your vision..."
+                value={formData.message}
+                onChange={handleChange}
+                required
+              ></textarea>
             </div>
             
-            <button type="submit" className="submit-btn">Submit</button>
+            <button type="submit" className="submit-btn" disabled={isSubmitting}>
+              {isSubmitting ? 'SENDING...' : 'SUBMIT'}
+            </button>
+
+            {status.message && (
+              <div className={`form-status status-${status.type}`}>
+                {status.message}
+              </div>
+            )}
           </form>
         </div>
         
@@ -87,3 +158,4 @@ const ContactSection = () => {
 };
 
 export default ContactSection;
+

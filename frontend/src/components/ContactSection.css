@@ -91,6 +91,45 @@
   letter-spacing: 1px;
 }
 
+.submit-btn:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.form-status {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.status-success {
+  background-color: rgba(76, 175, 80, 0.1);
+  color: #2e7d32;
+  border-left: 4px solid #4caf50;
+}
+
+.status-error {
+  background-color: rgba(211, 47, 47, 0.1);
+  color: #c62828;
+  border-left: 4px solid #d32f2f;
+}
+
+.status-loading {
+  background-color: rgba(33, 150, 243, 0.1);
+  color: #1565c0;
+  border-left: 4px solid #2196f3;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .submit-btn:hover {
   background-color: #333;
 }

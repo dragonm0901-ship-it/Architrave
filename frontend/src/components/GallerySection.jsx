@@ -2,15 +2,20 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './GallerySection.css';
+import gallery1 from '../assets/images/gallery_1_center_1777865420748.png';
+import gallery2 from '../assets/images/gallery_2_tl_1777865449758.png';
+import gallery3 from '../assets/images/gallery_3_tr_1777865476721.png';
+import gallery4 from '../assets/images/gallery_4_bl_1777865505030.png';
+import gallery5 from '../assets/images/gallery_5_br_1777865535850.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const images = [
-  { className: 'gallery-center', src: 'https://cdn.prod.website-files.com/69f5a976715525ce3175cda8/69f5a978715525ce3175ce17_gallery-img-center.webp', alt: 'Center Image' },
-  { className: 'gallery-tl', src: 'https://cdn.prod.website-files.com/69f5a976715525ce3175cda8/69f5a978715525ce3175ce15_gallery-img-tl.webp', alt: 'Top Left Image' },
-  { className: 'gallery-tr', src: 'https://cdn.prod.website-files.com/69f5a976715525ce3175cda8/69f5a978715525ce3175cdf8_gallery-img-tr.webp', alt: 'Top Right Image' },
-  { className: 'gallery-bl', src: 'https://cdn.prod.website-files.com/69f5a976715525ce3175cda8/69f5a978715525ce3175ce19_gallery-img-bl.webp', alt: 'Bottom Left Image' },
-  { className: 'gallery-br', src: 'https://cdn.prod.website-files.com/69f5a976715525ce3175cda8/69f5a978715525ce3175ce16_gallery-img-br.webp', alt: 'Bottom Right Image' },
+  { className: 'gallery-center', src: gallery1, alt: 'Center Image' },
+  { className: 'gallery-tl', src: gallery2, alt: 'Top Left Image' },
+  { className: 'gallery-tr', src: gallery3, alt: 'Top Right Image' },
+  { className: 'gallery-bl', src: gallery4, alt: 'Bottom Left Image' },
+  { className: 'gallery-br', src: gallery5, alt: 'Bottom Right Image' },
 ];
 
 const GallerySection = () => {

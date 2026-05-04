@@ -27,7 +27,7 @@ const AboutSection = () => {
     <section className="section about-section" id="about-section" ref={sectionRef}>
       <div className="container">
         <div className="about-grid">
-          <h2>About</h2>
+          <h2>ABOUT</h2>
           <div className="about-blocks-wrapper">
             <div className="about-block">
               <p>Since 2010, Architrave Architects has been at the forefront of modern architectural design. We specialize in creating high-end residential and commercial spaces that harmonize with their natural surroundings while pushing the boundaries of contemporary structure.</p>
