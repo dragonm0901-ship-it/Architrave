@@ -51,9 +51,13 @@ app.get('/api/health', (req, res) => {
 // Global Error Handler
 app.use(errorHandler);
 
-app.listen(port, () => {
+// Only listen if not running as a Vercel serverless function
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}
 
-  console.log(`Server is running on port ${port}`);
-});
+module.exports = app;
 
 
