@@ -73,14 +73,39 @@
   z-index: 3;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
   .hero-section {
-    padding: 80px 15px 20px 15px; /* Also reduced on mobile */
+    padding: 130px 20px 0 20px;
   }
   .hero-container {
-    height: 60vh;
+    height: 75vh;
   }
   .hero-bg-title {
-    font-size: 20vw;
+    font-size: 15vw; /* Resized to prevent cropping */
+  }
+  .hero-text-layer {
+    top: 30%;
+  }
+  .hero-sky-layer {
+    background-position: center 20%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 120px 10px 0 10px; /* Clears 100px total navbar height */
+  }
+  .hero-container {
+    height: 60vh; /* Restored tall height */
+  }
+  .hero-bg-title {
+    font-size: 12vw; /* Resized to fit within width */
+    -webkit-text-stroke: 1px #7997a5;
+  }
+  .hero-text-layer {
+    top: 25%;
+  }
+  .hero-sky-layer {
+    background-position: center 10%;
   }
 }

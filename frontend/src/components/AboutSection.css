@@ -55,3 +55,15 @@
   }
 }
 
+@media (max-width: 480px) {
+  .about-section {
+    padding: 40px 0 60px;
+  }
+  .about-grid h2 {
+    font-size: 36px;
+  }
+  .about-blocks-wrapper {
+    gap: 30px;
+  }
+}
+

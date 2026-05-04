@@ -74,7 +74,7 @@ const ProjectsSection = () => {
           ease: "power3.out",
           scrollTrigger: {
             trigger: card,
-            start: "top 90%",
+            start: "top bottom",
             toggleActions: "play none none reverse"
           }
         });

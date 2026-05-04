@@ -120,19 +120,28 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 480px) {
+  .reviews-header-sticky {
+    top: 20px;
+    left: 20px;
+  }
   .review-text-large {
-    font-size: 22px;
+    font-size: 18px;
+    margin-bottom: 30px;
   }
   .review-card-wide {
-    height: 60vh;
-    padding: 40px;
+    width: 95%;
+    height: 50vh;
+    padding: 20px;
   }
   .review-quote-large {
-    font-size: 80px;
+    font-size: 60px;
+    margin-bottom: -10px;
   }
-  .reviews-header-sticky {
-    top: 40px;
-    left: 40px;
+  .review-author-name {
+    font-size: 16px;
+  }
+  .review-author-role {
+    font-size: 12px;
   }
 }

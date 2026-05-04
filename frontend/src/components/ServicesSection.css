@@ -175,3 +175,28 @@
     height: 300px;
   }
 }
+
+@media (max-width: 480px) {
+  .services-section {
+    padding: 40px 0 80px;
+  }
+  .services-container {
+    padding: 0 20px;
+  }
+  .services-left h2 {
+    font-size: 36px;
+  }
+  .service-title {
+    font-size: 20px;
+  }
+  .service-header-left {
+    gap: 15px;
+  }
+  .service-desc {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .service-image-container {
+    height: 200px;
+  }
+}

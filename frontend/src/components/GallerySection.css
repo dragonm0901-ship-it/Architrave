@@ -87,9 +87,9 @@
   z-index: 4;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
   .gallery-bg-text {
-    font-size: 24vw;
+    font-size: 16vw; /* Reduced to fit width */
   }
   .gallery-center {
     width: 60vw;
@@ -98,5 +98,19 @@
   .gallery-tl, .gallery-tr, .gallery-bl, .gallery-br {
     width: 40vw;
     height: 30vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-bg-text {
+    font-size: 14vw; /* Reduced further for mobile fit */
+  }
+  .gallery-center {
+    width: 80vw;
+    height: 40vh;
+  }
+  .gallery-tl, .gallery-tr, .gallery-bl, .gallery-br {
+    width: 50vw;
+    height: 25vh;
   }
 }

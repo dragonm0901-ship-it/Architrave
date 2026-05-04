@@ -22,21 +22,26 @@ const GallerySection = () => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Create a timeline that pins the section and scrubs
+    const mm = gsap.matchMedia();
+
+    mm.add({
+      isDesktop: "(min-width: 992px)",
+      isMobile: "(max-width: 991px)"
+    }, (context) => {
+      let { isMobile } = context.conditions;
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: "+=200%", // Pin for 2 viewports
+          end: "+=200%",
           pin: true,
-          scrub: 1
+          scrub: 1.5, // Slightly more lag for smoothness
+          invalidateOnRefresh: true
         }
       });
 
       // Initial state: Everything is clustered in the center and scaled down (0.5)
-      // Since CSS has translate(-50%, -50%), we must use xPercent: -50, yPercent: -50 in GSAP to maintain centering while adding specific x/y values.
-      
       gsap.set('.gallery-image-wrapper', {
         xPercent: -50,
         yPercent: -50,
@@ -45,47 +50,70 @@ const GallerySection = () => {
         scale: 0.5
       });
 
-      // Center image just scales up
+      // Background text initial state: Visible and at the top for both Desktop and Mobile
+      gsap.set('.gallery-bg-text', {
+        y: -window.innerHeight * 0.35, // Positioned at the top
+        opacity: 1
+      });
+
+      if (isMobile) {
+        gsap.set('.gallery-center', { scale: 1 });
+      }
+
+      // Animate background text to center: Faster slide and earlier fade-out
+      tl.to('.gallery-bg-text', {
+        y: 0,
+        opacity: 1,
+        duration: 0.3,
+        ease: "power2.out"
+      }, 0);
+
+      // Fade out earlier
+      tl.to('.gallery-bg-text', {
+        opacity: 0,
+        duration: 0.2,
+        ease: "power1.inOut"
+      }, 0.3);
+
       tl.to('.gallery-center', {
-        scale: 1,
+        scale: isMobile ? 0.5 : 1,
         ease: "power2.inOut"
       }, 0);
 
-      // Top Left moves up and left, scales up
+      // Top Left
       tl.to('.gallery-tl', {
-        x: "-28vw",
-        y: "-22vh",
+        x: isMobile ? "-25vw" : "-28vw",
+        y: isMobile ? "-15vh" : "-22vh",
         scale: 1,
         ease: "power2.inOut"
       }, 0);
 
-      // Top Right moves up and right, scales up
+      // Top Right
       tl.to('.gallery-tr', {
-        x: "26vw",
-        y: "-26vh",
+        x: isMobile ? "25vw" : "26vw",
+        y: isMobile ? "-20vh" : "-26vh",
         scale: 1,
         ease: "power2.inOut"
       }, 0);
 
-      // Bottom Left moves down and left, scales up
+      // Bottom Left
       tl.to('.gallery-bl', {
-        x: "-30vw",
-        y: "28vh",
+        x: isMobile ? "-25vw" : "-30vw",
+        y: isMobile ? "20vh" : "28vh",
         scale: 1,
         ease: "power2.inOut"
       }, 0);
 
-      // Bottom Right moves down and right, scales up
+      // Bottom Right
       tl.to('.gallery-br', {
-        x: "28vw",
-        y: "24vh",
+        x: isMobile ? "25vw" : "28vw",
+        y: isMobile ? "18vh" : "24vh",
         scale: 1,
         ease: "power2.inOut"
       }, 0);
+    });
 
-    }, sectionRef);
-
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (

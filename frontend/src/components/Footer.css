@@ -170,13 +170,28 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 480px) {
+  .footer-section {
+    padding: 60px 0 40px;
+  }
+  .footer-container {
+    padding: 0 20px;
+  }
+  .footer-logo {
+    height: 80px;
+  }
   .footer-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr); /* 2x2 Grid */
+    gap: 30px;
+    margin-bottom: 60px;
   }
   .footer-bottom {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+  }
+  .footer-bottom-left {
+    justify-content: center;
   }
 }

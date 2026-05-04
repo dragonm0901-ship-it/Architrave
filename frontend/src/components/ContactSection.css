@@ -161,3 +161,25 @@
     height: 50vh;
   }
 }
+
+@media (max-width: 480px) {
+  .contact-section {
+    padding: 60px 0;
+  }
+  .contact-container {
+    padding: 0 20px;
+  }
+  .contact-left h2 {
+    font-size: 36px;
+  }
+  .contact-left p {
+    font-size: 16px;
+  }
+  .contact-right {
+    height: 40vh;
+  }
+  .submit-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

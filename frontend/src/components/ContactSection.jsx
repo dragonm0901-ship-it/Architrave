@@ -19,7 +19,14 @@ const ContactSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add({
+      isDesktop: "(min-width: 992px)",
+      isMobile: "(max-width: 991px)"
+    }, (context) => {
+      let { isMobile } = context.conditions;
+
       gsap.set(imageRef.current, { yPercent: -15 });
 
       gsap.to(imageRef.current, {
@@ -41,13 +48,12 @@ const ContactSection = () => {
         ease: "power3.out",
         scrollTrigger: {
           trigger: '.contact-left',
-          start: "top 80%"
+          start: isMobile ? "top 95%" : "top 80%"
         }
       });
+    });
 
-    }, sectionRef);
-
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   const handleChange = (e) => {

@@ -6,21 +6,28 @@ const AboutSection = () => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    mm.add({
+      isDesktop: "(min-width: 992px)",
+      isMobile: "(max-width: 991px)"
+    }, (context) => {
+      let { isMobile } = context.conditions;
+      
       gsap.from('.about-block', {
-        y: 50,
+        y: 30,
         opacity: 0,
         duration: 1,
         stagger: 0.2,
         ease: "power3.out",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
+          start: isMobile ? "top 95%" : "top 80%",
         }
       });
-    }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    return () => mm.revert();
   }, []);
 
   return (
